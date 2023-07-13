@@ -1,0 +1,10 @@
+.container__phonebook {
+    width: 450px;
+    margin-right: auto;
+    margin-left: auto;
+    background: linear-gradient(90deg, rgba(174, 249, 17, 1) 0%, rgba(41, 249, 17, 1) 39%, rgba(37, 193, 28, 1) 100%);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    padding: 30px;
+}
