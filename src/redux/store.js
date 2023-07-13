@@ -32,7 +32,7 @@ const itemsReducer = ([], {
 
 // Початкове значення стану Redux для кореневого редюсера,
 // якщо не передати параметр preloadedState.
-const initialState = {
+/*const initialState = {
   contacts: [
     {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
     {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
@@ -40,7 +40,9 @@ const initialState = {
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
   ],
    filter: '',
-};
+};*/
+
+
 
 // Поки що використовуємо редюсер який
 // тільки повертає отриманий стан
