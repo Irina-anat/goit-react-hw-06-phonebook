@@ -1,38 +1,40 @@
-import { nanoid } from "nanoid";
-import css from './ContactForm.module.css'
-//import {useState} from 'react';
-//import PropTypes from 'prop-types';
+import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import css from './ContactForm.module.css';
 
 
 export const ContactForm = () => {
-  /*const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        return;
-    }
-  };*/
-
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
-   // onSubmit({ name, number });
-    
-    const form = event.currentTarget
-    console.log(form.elements.name.value)
-    console.log(form.elements.number.value)
-    form.reset()
-    //setName('');
-    //setNumber('');
+    const form = event.target;
+    const name = form.elements.name.value;
+    //console.log(form.elements.name.value);
+    const number = form.elements.number.value;
+    //console.log(form.elements.number.value);
+
+    const lowerCaseName = name.toLowerCase();
+
+    const isContactExist = contacts.some(
+      contact =>
+        (contact.name.toLowerCase() === lowerCaseName &&
+          contact.number === number) ||
+        contact.number === number ||
+        contact.name.toLowerCase() === lowerCaseName
+    );
+
+    isContactExist
+      ? Notify.warning(
+          `Contact with that ${name} or ${number} is already present in the phone book.`
+        )
+      : dispatch(addContact(name, number));
+
+    form.reset();
   };
 
   const inputNameId = nanoid();
@@ -49,8 +51,7 @@ export const ContactForm = () => {
             pattern="^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+( [A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+)?"
             title="Enter last name or first name or both last name and first name"
             required
-           // value={name}
-           // onChange={handleChange}
+            value={contacts.name}
             id={inputNameId}
           />
         </label>
@@ -62,8 +63,7 @@ export const ContactForm = () => {
             pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
             title="Valid Phone Number: Optional '+' Symbol, Digits, Spaces, Hyphens, and Parentheses"
             required
-           // value={number}
-           // onChange={handleChange}
+            value={contacts.number}
             id={inputNumberId}
           />
         </label>
@@ -73,57 +73,11 @@ export const ContactForm = () => {
   );
 };
 
+Notify.init({
+  width: '450px',
+  fontSize: '20px',
+  position: 'center-top',
+  closeButton: false,
+});
 
-/*ContactForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-};*/
 
-
-
-
-/*export const ContactForm = () => {
- const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    //const formName = event.target.elements.name.value;
-    //const formNumber = event.target.elements.number.value;
-    form.reset();
-  };
-
-  const inputNameId = nanoid();
-  const inputNumberId = nanoid();
-
-  return (
-    <div>
-      <form className={css.form} onSubmit={handleSubmit}>
-        <label htmlFor={inputNameId}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Ім'я"
-            pattern="^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+( [A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+)?"
-            title="Enter last name or first name or both last name and first name"
-            required
-           // value={name}
-           // onChange={handleChange}
-            id={inputNameId}
-          />
-        </label>
-        <label htmlFor={inputNumberId}>
-          <input
-            type="tel"
-            name="number"
-            placeholder="Номер телефону"
-            pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-            title="Valid Phone Number: Optional '+' Symbol, Digits, Spaces, Hyphens, and Parentheses"
-            required
-            //value={number}
-            //onChange={handleChange}
-            id={inputNumberId}
-          />
-        </label>
-        <button type="submit">Add contact</button>
-      </form>
-    </div>
-  );
-};*/

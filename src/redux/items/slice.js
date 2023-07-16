@@ -1,5 +1,5 @@
 import {createSlice } from "@reduxjs/toolkit";
-
+//практика
 
 export const itemsSlice = createSlice({
   name: "items",

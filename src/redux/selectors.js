@@ -1,4 +1,4 @@
 // файл оголошення функцій-селекторів
-export const getContactsList = state => state.contacts;
+export const getContacts = state => state.contacts;
 
-export const getContactsFilter = state => state.filters;
+export const getFilter = state => state.filters;
