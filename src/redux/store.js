@@ -5,6 +5,7 @@ import { filtersReducer } from './filtersSlices';
 //import { myValueSlice } from './myValue/slice';
 import {persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE,
 REGISTER,} from 'redux-persist';
+
 import storage from 'redux-persist/lib/storage';
 
 
@@ -16,9 +17,9 @@ const rootReducer = combineReducers({
 });
 
 const persistConfig = {
-  key: 'root',
+  key: 'contacts',
   storage,
-  whitelist: ['contacts'],
+  whitelist: ['contacts'], //зі state зберігаються в localeStorage лише contacts
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -33,7 +34,7 @@ export const store = configureStore({
     }),
 });
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(store);//передається в index.js
 
 
 
