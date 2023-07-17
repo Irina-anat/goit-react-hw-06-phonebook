@@ -4,7 +4,7 @@ import { getFilter } from "redux/selectors";
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter)
+  const filter = useSelector(getFilter);
         
   const handleChange = ({ currentTarget: { value } }) => {
     const normalizedValue = value.toLowerCase().trim();
