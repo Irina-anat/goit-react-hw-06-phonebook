@@ -9,7 +9,7 @@ const contactsSlice = createSlice({
   reducers: {
     addContact: {
       reducer(state, action) {
-        state.push(action.payload);
+        state.push(action.payload);//return не потрібен, бо відбулась мутація
       },
 
       prepare(name, number) {
@@ -24,7 +24,7 @@ const contactsSlice = createSlice({
     },
     deleteContact(state, action) {
       return state.filter(contact => contact.id !== action.payload);
-    },
+    }, //імутабельний код потрібно return інакше undefined. Не змінюю state
   },
 });
 
