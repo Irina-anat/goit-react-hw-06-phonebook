@@ -1,8 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { contactsReducer } from './contactsSlice';
 import { filtersReducer } from './filtersSlices';
-//import { itemsSlice } from './items/slice';
-//import { myValueSlice } from './myValue/slice';
 import {persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE,
 REGISTER,} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -11,8 +9,6 @@ import storage from 'redux-persist/lib/storage';
 const rootReducer = combineReducers({
   contacts: contactsReducer,
   filters: filtersReducer,
-  // myValue: myValueSlice.reducer,
-  // items: itemsSlice.reducer,
 });
 
 const persistConfig = {
